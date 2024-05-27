@@ -15,7 +15,7 @@ impl StateMachine for LightSwitch {
     type Transition = ();
 
     fn next_state(starting_state: &bool, t: &()) -> bool {
-        todo!("Exercise 1")
+        !starting_state
     }
 }
 
@@ -42,7 +42,28 @@ impl StateMachine for WeirdSwitchMachine {
     type Transition = Toggle;
 
     fn next_state(starting_state: &TwoSwitches, t: &Toggle) -> TwoSwitches {
-        todo!("Exercise 2")
+        println!("{:?}", starting_state);
+        match t {
+            Toggle::FirstSwitch => {
+                if starting_state.first_switch == true {
+                    TwoSwitches {
+                        first_switch: false,
+                        second_switch: false,
+                    }
+                } else {
+                    TwoSwitches {
+                        first_switch: true,
+                        second_switch: starting_state.second_switch,
+                    }
+                }
+            }
+            Toggle::SecondSwitch => {
+                TwoSwitches {
+                    first_switch: starting_state.first_switch,
+                    second_switch: !starting_state.second_switch,
+                }
+            }
+        }
     }
 }
 
@@ -63,13 +84,10 @@ fn sm_1_two_switches_first_goes_on() {
         second_switch: false,
     };
 
-    assert_eq!(
-        WeirdSwitchMachine::next_state(&state, &Toggle::FirstSwitch),
-        TwoSwitches {
-            first_switch: true,
-            second_switch: false,
-        }
-    );
+    assert_eq!(WeirdSwitchMachine::next_state(&state, &Toggle::FirstSwitch), TwoSwitches {
+        first_switch: true,
+        second_switch: false,
+    });
 }
 
 #[test]
@@ -80,13 +98,10 @@ fn sm_1_two_switches_first_goes_off_second_was_on() {
         second_switch: true,
     };
 
-    assert_eq!(
-        WeirdSwitchMachine::next_state(&state, &Toggle::FirstSwitch),
-        TwoSwitches {
-            first_switch: false,
-            second_switch: false,
-        }
-    );
+    assert_eq!(WeirdSwitchMachine::next_state(&state, &Toggle::FirstSwitch), TwoSwitches {
+        first_switch: false,
+        second_switch: false,
+    });
 }
 
 #[test]
@@ -97,13 +112,10 @@ fn sm_1_two_switches_first_goes_off_second_was_off() {
         second_switch: false,
     };
 
-    assert_eq!(
-        WeirdSwitchMachine::next_state(&state, &Toggle::FirstSwitch),
-        TwoSwitches {
-            first_switch: false,
-            second_switch: false,
-        }
-    );
+    assert_eq!(WeirdSwitchMachine::next_state(&state, &Toggle::FirstSwitch), TwoSwitches {
+        first_switch: false,
+        second_switch: false,
+    });
 }
 
 #[test]
@@ -113,13 +125,10 @@ fn sm_1_two_switches_second_goes_on() {
         second_switch: false,
     };
 
-    assert_eq!(
-        WeirdSwitchMachine::next_state(&state, &Toggle::SecondSwitch),
-        TwoSwitches {
-            first_switch: false,
-            second_switch: true,
-        }
-    );
+    assert_eq!(WeirdSwitchMachine::next_state(&state, &Toggle::SecondSwitch), TwoSwitches {
+        first_switch: false,
+        second_switch: true,
+    });
 }
 
 #[test]
@@ -129,11 +138,8 @@ fn sm_1_two_switches_second_goes_off() {
         second_switch: true,
     };
 
-    assert_eq!(
-        WeirdSwitchMachine::next_state(&state, &Toggle::SecondSwitch),
-        TwoSwitches {
-            first_switch: true,
-            second_switch: false,
-        }
-    );
+    assert_eq!(WeirdSwitchMachine::next_state(&state, &Toggle::SecondSwitch), TwoSwitches {
+        first_switch: true,
+        second_switch: false,
+    });
 }
