@@ -7,7 +7,7 @@
 //! Since we have nothing to add to the Block or Header data structures in this lesson,
 //! we will import them from the previous lesson.
 
-use super::p4_batched_extrinsics::{Block, Header};
+use super::p4_batched_extrinsics::{ Block, Header };
 use crate::hash;
 
 const THRESHOLD: u64 = u64::max_value() / 100;
@@ -230,39 +230,22 @@ fn bc_5_most_even_blocks() {
     }
     let chain_2 = &[g, h_b1, h_b2];
 
-    assert!(MostBlocksWithEvenHash::first_chain_is_better(
-        chain_1, chain_2
-    ));
+    assert!(MostBlocksWithEvenHash::first_chain_is_better(chain_1, chain_2));
 
-    assert_eq!(
-        MostBlocksWithEvenHash::best_chain(&[chain_1, chain_2]),
-        chain_1
-    );
+    assert_eq!(MostBlocksWithEvenHash::best_chain(&[chain_1, chain_2]), chain_1);
 }
 
 #[test]
 fn bc_5_longest_vs_heaviest() {
     let (_, longest_chain, pow_chain) = create_fork_one_side_longer_other_side_heavier();
 
-    assert!(LongestChainRule::first_chain_is_better(
-        &longest_chain,
-        &pow_chain
-    ));
+    assert!(LongestChainRule::first_chain_is_better(&longest_chain, &pow_chain));
 
-    assert_eq!(
-        LongestChainRule::best_chain(&[&longest_chain, &pow_chain]),
-        &longest_chain
-    );
+    assert_eq!(LongestChainRule::best_chain(&[&longest_chain, &pow_chain]), &longest_chain);
 
     let (_, longest_chain, pow_chain) = create_fork_one_side_longer_other_side_heavier();
 
-    assert!(HeaviestChainRule::first_chain_is_better(
-        &pow_chain,
-        &longest_chain
-    ));
+    assert!(HeaviestChainRule::first_chain_is_better(&pow_chain, &longest_chain));
 
-    assert_eq!(
-        HeaviestChainRule::best_chain(&[&longest_chain, &pow_chain]),
-        &pow_chain
-    );
+    assert_eq!(HeaviestChainRule::best_chain(&[&longest_chain, &pow_chain]), &pow_chain);
 }

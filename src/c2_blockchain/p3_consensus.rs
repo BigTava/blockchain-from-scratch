@@ -222,8 +222,8 @@ fn bc_3_even_chain_valid() {
     let g = Header::genesis(); // 0
     let b1 = g.child(2); // 2
     let b2 = b1.child(1); // 3
-                          // It' all about the states, not the extrinsics. So once the state is even
-                          // we need to keep it that way. So add evens
+    // It' all about the states, not the extrinsics. So once the state is even
+    // we need to keep it that way. So add evens
     let b3 = b2.child(1); // 4
     let b4 = b3.child(2); // 6
 
@@ -257,8 +257,8 @@ fn bc_3_odd_chain_valid() {
     let g = Header::genesis(); // 0
     let b1 = g.child(2); // 2
     let b2 = b1.child(1); // 3
-                          // It' all about the states, not the extrinsics. So once the state is odd
-                          // we need to keep it that way. So add evens
+    // It' all about the states, not the extrinsics. So once the state is odd
+    // we need to keep it that way. So add evens
     let b3 = b2.child(2); // 5
     let b4 = b3.child(2); // 7
 

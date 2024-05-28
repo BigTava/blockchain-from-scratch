@@ -149,13 +149,10 @@ fn bc_6_child_block_empty() {
 
     assert_eq!(b1.header.height, 1);
     assert_eq!(b1.header.parent, hash(&b0.header));
-    assert_eq!(
-        b1,
-        Block {
-            header: b1.header.clone(),
-            body: vec![]
-        }
-    );
+    assert_eq!(b1, Block {
+        header: b1.header.clone(),
+        body: vec![],
+    });
 }
 
 #[test]
@@ -166,13 +163,10 @@ fn bc_6_child_block() {
 
     assert_eq!(b1.header.height, 1);
     assert_eq!(b1.header.parent, hash(&b0.header));
-    assert_eq!(
-        b1,
-        Block {
-            header: b1.header.clone(),
-            body: vec![1, 2, 3, 4, 5]
-        }
-    );
+    assert_eq!(b1, Block {
+        header: b1.header.clone(),
+        body: vec![1, 2, 3, 4, 5],
+    });
 }
 
 #[test]
